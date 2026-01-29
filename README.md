@@ -86,3 +86,10 @@ OOPS-Banner-App/
 - Reduces verbosity
 
 ---
+
+### ✅ UC6: Refactor Banner Logic into Methods
+- Separate methods for characters **O**, **P**, **S**
+- Applies **DRY Principle**
+- Improves reusability and maintainability
+
+---
