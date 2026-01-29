@@ -100,3 +100,35 @@ OOPS-Banner-App/
 - Demonstrates **OOPS principles**
 
 ---
+
+### ✅ UC8: Use HashMap for Character Patterns
+- Uses `HashMap<Character, String[]>`
+- Enables **O(1)** pattern lookup
+- Uses `StringBuilder` and nested loops
+- Results in a **fully scalable banner engine**
+
+---
+
+## 🧠 OOPS Concepts Demonstrated
+
+- Encapsulation
+- Abstraction
+- Modularity
+- Reusability
+- Single Responsibility Principle (SRP)
+- Separation of Concerns
+
+---
+
+## 📈 Learning Outcomes
+
+- Incremental refactoring approach
+- Clean code and maintainable design
+- Real-world use of Java Collections
+- Interview-ready Java OOPS project
+
+---
+
+## ✅ Conclusion
+
+This project showcases how a **simple requirement** can be evolved into a **clean, extensible, and scalable solution** using **Object-Oriented Design principles** and **best coding practices**. It serves as a strong foundation for understanding **real-world Java application design**.
