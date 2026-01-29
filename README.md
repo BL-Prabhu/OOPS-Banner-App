@@ -72,3 +72,10 @@ OOPS-Banner-App/
 - Improves readability and memory efficiency
 
 ---
+
+### ✅ UC4: Banner Using String Array & Loop
+- Stores banner lines in a `String[]`
+- Uses loop for rendering
+- Improves modularity
+
+---
