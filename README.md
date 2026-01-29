@@ -59,3 +59,10 @@ OOPS-Banner-App/
 - **Focus:** Basic Java syntax
 
 ---
+
+### ✅ UC2: Banner Using Print Statements
+- ASCII art using `System.out.println()`
+- Uses `*` and spaces
+- **Drawback:** Hardcoded and repetitive
+
+---
