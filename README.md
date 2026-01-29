@@ -66,3 +66,9 @@ OOPS-Banner-App/
 - **Drawback:** Hardcoded and repetitive
 
 ---
+
+### ✅ UC3: Banner Using `String.join()`
+- Replaces `+` operator with `String.join()`
+- Improves readability and memory efficiency
+
+---
