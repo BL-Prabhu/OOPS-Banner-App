@@ -93,3 +93,10 @@ OOPS-Banner-App/
 - Improves reusability and maintainability
 
 ---
+
+### ✅ UC7: Store Character Pattern in a Class
+- Introduces `CharacterPatternMap` class
+- Encapsulates character → pattern mapping
+- Demonstrates **OOPS principles**
+
+---

@@ -1,138 +1,208 @@
 package oopsbannerapp;
 
-
 /**
  * PrintOOPS class
  *
- * <p>This class implements <b>UC6: Refactor Banner Logic into Functions</b>.
- * It renders the word {@code "OOPS"} in a banner format using spaces and
- * asterisk ({@code *}) characters.</p>
+ * <p>This class implements <b>UC7: Store Character Pattern in a Class</b>.
+ * It renders a banner representation of a given message (e.g. {@code "OOPS"})
+ * using ASCII art composed of spaces and asterisk ({@code *}) characters.</p>
  *
- * <p>In this use case, the banner rendering logic is refactored by
- * introducing dedicated helper methods to generate the ASCII patterns
- * for each character (O, P, and S). This removes hardcoded inline
- * initialization and improves modularity, reusability, and readability.</p>
+ * <p>This use case improves upon UC6 by introducing a dedicated inner
+ * class to encapsulate a character and its corresponding banner pattern.
+ * This provides centralized pattern management and makes the solution
+ * more scalable and easier to maintain when adding new characters.</p>
  *
- * <p>Each helper method returns a {@code String[]} representing a
- * 7-line pattern with a fixed width of 9 characters. The main method
- * assembles these patterns line by line to form the final banner output.</p>
+ * <p>The banner rendering logic retrieves character patterns from a
+ * collection of {@code CharacterPatternMap} objects and constructs
+ * the output row by row using nested loops and {@code StringBuilder}
+ * for efficient string concatenation.</p>
  *
- * <p>This implementation demonstrates the application of key object-oriented
- * design principles such as abstraction, encapsulation, and the
- * DRY (Don’t Repeat Yourself) principle.</p>
- *
- * <p>Key concepts demonstrated in this use case include:</p>
- * <ul>
- *   <li>Static helper methods</li>
- *   <li>Method abstraction and encapsulation</li>
- *   <li>Reusability of character patterns</li>
- *   <li>Loop-based banner rendering</li>
- *   <li>Composing complex output from smaller reusable units</li>
- * </ul>
+ * <p>Key object-oriented principles such as encapsulation, abstraction,
+ * modularity, reusability, and separation of concerns are demonstrated
+ * in this implementation.</p>
  *
  * @author Prabhu
- * @version 6.0
+ * @version 7.0
  */
-
 public class PrintOOPS
 {
 
     /**
-     * Generates the banner pattern for the letter {@code 'O'}.
+     * Inner static class that encapsulates a character and its banner pattern.
      *
-     * <p>The pattern consists of 7 lines, each having a fixed width
-     * of 9 characters, and visually represents the letter O
-     * using asterisk characters.</p>
+     * <p>This class represents a mapping between a single character and
+     * its corresponding 7-line ASCII banner pattern. Making this class
+     * {@code static} allows it to be instantiated without requiring an
+     * instance of the outer {@code PrintOOPS} class.</p>
      *
-     * @return a {@code String[]} containing the 7-line banner pattern for O
+     * <p>The class is immutable; its state is initialized via the constructor
+     * and accessed only through getter methods.</p>
      */
+    static class CharacterPatternMap
+    {
 
-    public static String[] getOPattern() {
-        return new String[]{
-                "  *****  ",
-                " *     * ",
-                " *     * ",
-                " *     * ",
-                " *     * ",
-                " *     * ",
-                "  *****  "
+        /** The character represented by this pattern. */
+        private final Character character;
+
+        /** The 7-line ASCII banner pattern for the character. */
+        private final String[] pattern;
+
+        /**
+         * Constructs a {@code CharacterPatternMap} object.
+         *
+         * @param character the character to be mapped
+         * @param pattern   the 7-line banner pattern representing the character
+         */
+        public CharacterPatternMap(Character character, String[] pattern)
+        {
+            this.character = character;
+            this.pattern = pattern;
+        }
+
+        /**
+         * Returns the character associated with this pattern.
+         *
+         * @return the mapped character
+         */
+        public Character getCharacter()
+        {
+            return character;
+        }
+
+        /**
+         * Returns the banner pattern for the character.
+         *
+         * @return a {@code String[]} containing the 7-line banner pattern
+         */
+        public String[] getPattern()
+        {
+            return pattern;
+        }
+    }
+
+    /**
+     * Creates and returns an array of {@code CharacterPatternMap} objects.
+     *
+     * <p>This method initializes banner patterns for supported characters
+     * such as {@code 'O'}, {@code 'P'}, {@code 'S'}, and a space character
+     * to handle unsupported or blank characters gracefully.</p>
+     *
+     * @return an array of {@code CharacterPatternMap} objects
+     */
+    public static CharacterPatternMap[] createCharacterPatternMaps()
+    {
+        return new CharacterPatternMap[]{
+
+                new CharacterPatternMap('O', new String[]{
+                        "  *****  ",
+                        " *     * ",
+                        " *     * ",
+                        " *     * ",
+                        " *     * ",
+                        " *     * ",
+                        "  *****  "
+                }),
+
+                new CharacterPatternMap('P', new String[]{
+                        " ******  ",
+                        " *     * ",
+                        " *     * ",
+                        " ******  ",
+                        " *        ",
+                        " *        ",
+                        " *        "
+                }),
+
+                new CharacterPatternMap('S', new String[]{
+                        "  *****  ",
+                        " *        ",
+                        " *        ",
+                        "  *****  ",
+                        "       * ",
+                        "       * ",
+                        "  *****  "
+                }),
+
+                new CharacterPatternMap(' ', new String[]{
+                        "          ",
+                        "          ",
+                        "          ",
+                        "          ",
+                        "          ",
+                        "          ",
+                        "          "
+                })
         };
     }
 
     /**
-     * Generates the banner pattern for the letter {@code 'P'}.
+     * Retrieves the banner pattern for a given character.
      *
-     * <p>The pattern consists of 7 lines with a fixed width
-     * and visually represents the letter P using asterisks.</p>
+     * <p>This method abstracts the pattern lookup logic by searching
+     * through the provided {@code CharacterPatternMap} array. If the
+     * character is not found, a blank space pattern is returned.</p>
      *
-     * @return a {@code String[]} containing the 7-line banner pattern for P
+     * @param ch       the character whose pattern is required
+     * @param charMaps the array of available character-pattern mappings
+     * @return a {@code String[]} representing the character's banner pattern
      */
-
-    public static String[] getPPattern() {
-        return new String[]{
-                " ******  ",
-                " *     * ",
-                " *     * ",
-                " ******  ",
-                " *        ",
-                " *        ",
-                " *        "
-        };
+    public static String[] getCharacterPattern(char ch, CharacterPatternMap[] charMaps)
+    {
+        for (CharacterPatternMap map : charMaps)
+        {
+            if (map.getCharacter() == ch)
+            {
+                return map.getPattern();
+            }
+        }
+        return getCharacterPattern(' ', charMaps);
     }
 
     /**
-     * Generates the banner pattern for the letter {@code 'S'}.
+     * Prints a message in banner format using stored character patterns.
      *
-     * <p>The pattern consists of 7 lines with a fixed width
-     * and visually represents the letter S using asterisks.</p>
+     * <p>The method converts the input message to uppercase, retrieves
+     * the corresponding banner pattern for each character, and prints
+     * the output row by row using nested loops.</p>
      *
-     * @return a {@code String[]} containing the 7-line banner pattern for S
+     * <p>{@code StringBuilder} is used to efficiently concatenate patterns
+     * for each row before printing.</p>
+     *
+     * @param message  the message to be displayed as a banner
+     * @param charMaps the character-pattern mappings
      */
+    public static void printMessage(String message, CharacterPatternMap[] charMaps)
+    {
+        message = message.toUpperCase();
 
-    public static String[] getSPattern() {
-        return new String[]{
-                "  *****  ",
-                " *        ",
-                " *        ",
-                "  *****  ",
-                "       * ",
-                "       * ",
-                "  *****  "
-        };
+        for (int row = 0; row < 7; row++)
+        {
+            StringBuilder lineBuilder = new StringBuilder();
+
+            for (char ch : message.toCharArray())
+            {
+                String[] pattern = getCharacterPattern(ch, charMaps);
+                lineBuilder.append(pattern[row]);
+            }
+
+            System.out.println(lineBuilder.toString());
+        }
     }
+
     /**
      * Main method – Entry point of the Java application.
      *
-     * <p>This method retrieves character patterns using helper methods
-     * and assembles the word {@code "OOPS"} by combining the patterns
-     * line by line. The banner is printed using a loop to ensure
-     * clean and maintainable rendering logic.</p>
-     *
-     * <p>The letter {@code 'O'} is reused twice to demonstrate
-     * pattern reuse and adherence to the DRY principle.</p>
+     * <p>This method initializes the character-pattern mappings and
+     * invokes the banner rendering logic to display the word
+     * {@code "OOPS"} in ASCII banner format.</p>
      *
      * @param args command-line arguments (not used)
      */
+    public static void main(String[] args)
+    {
+        CharacterPatternMap[] charMaps = createCharacterPatternMaps();
+        String message = "OOPS";
 
-
-    public static void main(String[] args) {
-
-        // Retrieve patterns
-        String[] oPattern = getOPattern();
-        String[] pPattern = getPPattern();
-        String[] sPattern = getSPattern();
-
-        // Assemble and print banner line by line
-        for (int i = 0; i < oPattern.length; i++) {
-            System.out.println(
-                    String.join("",
-                            oPattern[i],
-                            oPattern[i],   // 'O' repeated twice
-                            pPattern[i],
-                            sPattern[i]
-                    )
-            );
-        }
+        printMessage(message, charMaps);
     }
 }
-
