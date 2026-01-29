@@ -79,3 +79,10 @@ OOPS-Banner-App/
 - Improves modularity
 
 ---
+
+### ✅ UC5: Inline Array Initialization
+- Combines declaration and initialization
+- Uses `String.join()` inline
+- Reduces verbosity
+
+---
